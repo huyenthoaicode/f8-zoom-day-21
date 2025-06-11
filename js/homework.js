@@ -200,7 +200,7 @@ Array.prototype.findIndex2 = function(callback, thisArg) {
   const length = this.length;
 
   for (let i = 0; i < length; i++) {
-    if (i in this && callback.call(thisArg, this[i], i, this)) {
+    if (callback.call(thisArg, this[i], i, this)) {
         return i;
     }
   }
@@ -231,13 +231,9 @@ console.log(students.findIndex2(function (student) {
 // ----------------------- reduce2 -------------------------------
 Array.prototype.reduce2 = function(callback, initialValue) {
   const length = this.length;
-  let accumulator;
-  let startIndex = 0;
-
-  //startIndex = (initialValue === null || initialValue === undefined) ? 0 : 1;
-
-  accumulator = initialValue ?? this[startIndex];
-//console.log(startIndex);
+  let hasInitialValue = arguments.length > 1;
+  let accumulator = hasInitialValue ? initialValue : arr[0];
+  let startIndex = hasInitialValue ? 0 : 1;
 
   for (let i = startIndex; i < length; i++) {
     if (i in this) {
